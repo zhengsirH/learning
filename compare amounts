@@ -1,0 +1,90 @@
+#include <stdio.h>
+
+int max_two_one(int x, int y);
+int max_two_two(int x, int y);
+int max_three_one(int x, int y, int z);
+int max_three_two(int x, int y, int z);
+int max_three_three(int x, int y, int z);
+
+int main()
+{
+	int d;
+	int compare_two();
+	int compare_three();
+
+	printf("请输入1(比较两个数字)或2(比较三个数字)\n");
+	scanf_s("%d", &d);
+	if (d == 1){
+		compare_two();
+	}
+	else if (d == 2){
+		compare_three();
+	}
+	else{
+		printf("暂无此选项\n");
+		main();
+	}
+
+	return 0;
+}
+int compare_two(){
+	int a, b;
+	printf("请输入要比较的两个数字\n");
+	scanf_s("%d%d", &a, &b);
+	int c = max_two_one(a, b);
+	int d = max_two_two(a, b);
+	printf("max_two_one的结果是:%d\n", c);
+	printf("max_two_two的结果是:%d\n", d);
+	return 0;
+}
+int compare_three(){
+	int a, b, c;
+	printf("请输入要比较的三个数字\n");
+	scanf_s("%d%d%d", &a, &b,&c);
+	int d = max_three_one(a, b, c);
+	int e = max_three_two(a, b, c);
+	int f = max_three_three(a, b, c);
+	printf("max_three_one的结果是:%d\n", d);
+	printf("max_three_two的结果是:%d\n", e);
+	printf("max_three_three的结果是:%d\n", f);
+	return 0;
+}
+//常规逻辑(两数比较)
+int max_two_one(int x, int y){
+	int z;
+	if (x > y)z = x;
+	else z = y;
+	return z;
+
+}
+//简化使用>>>条件?选项1;选项2，若条件成立，输出值为选项1，不成立则为选项2
+int max_two_two(int x,int y){
+	int z = x > y ? x : y;
+	return z;
+}
+//常规逻辑(三数比较)
+int max_three_one(int x,int y,int z){
+	int o;
+	if (x > y){
+		o = x;
+		if (o > z)return o;
+		else return z;
+	}
+	else{
+		o = y;
+		if (o > z)return o;
+		else return z;
+	}
+}
+//简化使用>>>条件?选项1:选项2，若条件成立取选项1，不成立取选项2.由此选取两数最大值同第三个相比较
+int max_three_two(int x, int y, int z){
+	int a = x > y ? x : y;
+	int b = a > z ? a : z;
+	return b;
+}
+//嵌套使用，通过调用两数比较函数结果来进行两次计算
+int max_three_three(int x, int y, int z){
+	int a = max_two_one(x, y);
+	int b = max_two_two(a, z);
+		return b;
+}
